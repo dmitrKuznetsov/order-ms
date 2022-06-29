@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: Order microservice REST API v1.0
 servers:
-  - url: http://192.168.0.7:8080
+  - url: http://localhost:8080
 paths:
   /order:
     post:
