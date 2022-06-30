@@ -20,8 +20,12 @@ public class OrderService {
 
     public Order findById(int id) {
         Order order = orderMapper.findById(id);
-        ArrayList<OrderItem> orderItems = new ArrayList(orderItemMapper.findByOrderId(id));
-        order.setOrders(orderItems);
+        if (order != null) {
+            ArrayList<OrderItem> items = orderItemMapper.findByOrderId(id);
+            if (items != null) {
+                order.setOrders(items);
+            }
+        }
         return order;
     }
 }
