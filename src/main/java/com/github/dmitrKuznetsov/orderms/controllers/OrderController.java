@@ -25,7 +25,7 @@ public class OrderController {
 
     @PostMapping
     void create(@RequestBody Order order) {
-
+        orderService.create(order);
     }
 
     @PutMapping("{id}")
