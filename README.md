@@ -20,6 +20,6 @@ To see intermediate result visit: http://localhost:8080/order/1000
    Password: order-mc-pass  
 
 ## Open API
-UI: http://localhost:8080/swagger-ui.html
-JSON file: http://localhost:8080/v3/api-docs
+UI: http://localhost:8080/swagger-ui.html  
+JSON file: http://localhost:8080/v3/api-docs  
 Yaml file: http://localhost:8080/v3/api-docs.yaml
