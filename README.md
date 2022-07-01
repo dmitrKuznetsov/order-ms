@@ -1,12 +1,12 @@
 # Order Microservice
 This REST application:
-* Support CRUD operations for orders
-* Persist data in PostgreSQL database
+* Handle end points for orders.
+* Support PostgreSQL CRUD operations
 
 ## Local development
 For starting database run command:
 ```bash
-docker-compose -f docker-compose-postgres.yml -p orderms-postgres up -d    
+docker-compose -f docker-compose-postgres.yml -p orderms-postgres up -d
 ```
 Use OpenAPI to test features
 
@@ -23,3 +23,10 @@ Use OpenAPI to test features
 UI: http://localhost:8080/swagger-ui.html  
 JSON file: http://localhost:8080/v3/api-docs  
 Yaml file: http://localhost:8080/v3/api-docs.yaml
+
+# Technological stack
+- SpringBoot as a skeleton framework
+- SpringBoot Web starter
+- PostgreSQL database as a database for saving orders and order items
+- MyBatis starter
+- Flyway database migration tool
