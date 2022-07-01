@@ -19,7 +19,7 @@ paths:
             example:
               orderStatusId: 1
               customerName: "John Doe"
-              customerPhone: "+7-905-345-4523"
+              customerPhone: "+7-905-345-45-23"
               customerComment: "Pls. call me back"
               orderItems: [
                 {
@@ -45,7 +45,7 @@ paths:
                 id: 100001
                 orderStatusId: 1
                 customerName: "John Doe"
-                customerPhone: "+7-905-345-4523"
+                customerPhone: "+7-905-345-45-23"
                 customerComment: "Pls. call me back"
                 orderItems: [
                   {
@@ -88,7 +88,7 @@ paths:
                 id: 100001
                 orderStatusId: 1
                 customerName: "John Doe"
-                customerPhone: "+7-905-345-4523"
+                customerPhone: "+7-905-345-45-23"
                 customerComment: "Pls. call me back"
                 orderItems: [
                   {
@@ -131,7 +131,7 @@ paths:
               id: 100001
               orderStatusId: 1
               customerName: "John Doe"
-              customerPhone: "+7-905-345-4523"
+              customerPhone: "+7-905-345-45-23"
               customerComment: "call me back"
               orderItems: [
                 {

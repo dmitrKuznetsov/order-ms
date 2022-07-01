@@ -22,13 +22,21 @@ public class OrderService {
         if (order != null) {
             ArrayList<OrderItem> items = orderItemMapper.findByOrderId(id);
             if (items != null) {
-                order.setOrders(items);
+                order.setOrderItems(items);
             }
         }
         return order;
     }
 
-    public void create(Order order) {
+    public void save(Order order) {
+        orderMapper.insert(order);
+    }
 
+    public void deleteById(int id) {
+        orderMapper.deleteById(id);
+    }
+
+    public void update(int id, Order order) {
+        orderMapper.update(order);
     }
 }

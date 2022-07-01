@@ -24,17 +24,17 @@ public class OrderController {
     }
 
     @PostMapping
-    void create(@RequestBody Order order) {
-        orderService.create(order);
+    void save(@RequestBody Order order) {
+        orderService.save(order);
     }
 
     @PutMapping("{id}")
     void update(@PathVariable int id, @RequestBody Order order) {
-
+        orderService.update(id, order);
     }
 
     @DeleteMapping("{id}")
     void deleteById(@PathVariable int id) {
-
+        orderService.deleteById(id);
     }
 }
