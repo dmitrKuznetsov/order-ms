@@ -1,7 +1,7 @@
 # Order Microservice
 This REST application:
-* Handle end points for orders.
-* Support PostgreSQL CRUD operations
+* Support end points for orders.
+* Uses PostgreSQL database for persisting data
 
 ## Local development
 For starting database run command:
