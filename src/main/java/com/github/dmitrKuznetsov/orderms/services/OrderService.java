@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @Service
 public class OrderService {
@@ -30,6 +31,11 @@ public class OrderService {
 
     public void save(Order order) {
         orderMapper.insert(order);
+
+        ArrayList<OrderItem> orderItems = order.getOrderItems();
+        if (orderItems != null && orderItems.size() != 0) {
+            orderItemMapper.insertByOrderId(order.getId(), orderItems);
+        }
     }
 
     public void deleteById(int id) {
@@ -38,5 +44,37 @@ public class OrderService {
 
     public void update(int id, Order order) {
         orderMapper.update(order);
+
+        // update order items
+        ArrayList<OrderItem> existedItems = orderItemMapper.findByOrderId(id);
+        ArrayList<OrderItem> updatedItems = order.getOrderItems();
+
+        ArrayList<OrderItem> intersection = new ArrayList<>(existedItems);
+        intersection.retainAll(updatedItems);
+        existedItems.remove(intersection);
+        updatedItems.remove(intersection);
+
+        Iterator<OrderItem> exIterator = existedItems.iterator();
+        while (exIterator.hasNext()) {
+            OrderItem existingItem = exIterator.next();
+            Iterator<OrderItem> upIterator = updatedItems.iterator();
+            while (upIterator.hasNext()) {
+                OrderItem updatedItem = upIterator.next();
+                if (existingItem.getId() == updatedItem.getId() && existingItem.getOrderId() == updatedItem.getOrderId()) {
+                    orderItemMapper.update(updatedItem);
+                    exIterator.remove();
+                    upIterator.remove();
+                    break;
+                }
+            }
+        }
+
+        // todo case with creating and deleting items in order
+//        if (!existingItems.isEmpty()) {
+//            orderItemMapper.delete(existingItems);
+//        }
+//        if (!updatedItems.isEmpty()) {
+//            orderItemMapper.insert(updatedItems);
+//        }
     }
 }

@@ -25,6 +25,7 @@ public interface OrderMapper {
     Order findById(int id);
 
     @Insert(insert)
+    @Options(useGeneratedKeys=true, keyProperty="id")
     void insert(Order order);
 
     @Delete(deleteById)
