@@ -1,6 +1,6 @@
 # Order Microservice
-This REST application:
-* Support end points for orders.
+This RESTful application:
+* Supports CRUD operations for orders.
 * Uses PostgreSQL database for persisting data
 
 ## Local development
@@ -28,5 +28,5 @@ Yaml file: http://localhost:8080/v3/api-docs.yaml
 - SpringBoot as a skeleton framework
 - SpringBoot Web starter
 - PostgreSQL database as a database for saving orders and order items
-- MyBatis starter
+- SpringBoot MyBatis starter
 - Flyway database migration tool
