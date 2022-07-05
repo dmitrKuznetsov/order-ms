@@ -12,7 +12,7 @@ public interface OrderItemMapper {
     String insertByOrderId =
         "<script>" +
             "insert into ORDER_ITEM (ID, ORDER_ID, ITEM_NAME) values " +
-            "<foreach collection='items' item='o' separator = ', '>(NEXTVAL('order_item_seq'), #{orderId}, #{o.itemName})</foreach>" +
+            "<foreach collection='items' item='o' separator = ', '>(NEXTVAL('order_item_seq'), #{o.orderId}, #{o.itemName})</foreach>" +
         "</script>";
 
     String update = "UPDATE ORDER_ITEM SET ITEM_NAME=#{itemName} WHERE ID = #{id}";
@@ -22,7 +22,8 @@ public interface OrderItemMapper {
     ArrayList<OrderItem> findByOrderId(int id);
 
     @Insert(insertByOrderId)
-    void insertByOrderId(@Param("orderId") int orderId, @Param("items") ArrayList<OrderItem> items);
+    @Options(useGeneratedKeys=true, keyProperty="id")
+    void insertByOrderId(@Param("items") ArrayList<OrderItem> items);
 
     @Update(update)
     void update(OrderItem orderItem);

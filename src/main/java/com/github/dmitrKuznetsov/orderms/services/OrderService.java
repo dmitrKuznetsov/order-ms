@@ -29,20 +29,19 @@ public class OrderService {
         return order;
     }
 
-    public void save(Order order) {
+    public Order save(Order order) {
         orderMapper.insert(order);
 
         ArrayList<OrderItem> orderItems = order.getOrderItems();
         if (orderItems != null && orderItems.size() != 0) {
-            orderItemMapper.insertByOrderId(order.getId(), orderItems);
+            orderItems.forEach(orderItem -> orderItem.setOrderId(order.getId()));
+            orderItemMapper.insertByOrderId(orderItems);
         }
+
+        return order;
     }
 
-    public void deleteById(int id) {
-        orderMapper.deleteById(id);
-    }
-
-    public void update(int id, Order order) {
+    public Order update(int id, Order order) {
         orderMapper.update(order);
 
         // update order items
@@ -76,5 +75,11 @@ public class OrderService {
 //        if (!updatedItems.isEmpty()) {
 //            orderItemMapper.insert(updatedItems);
 //        }
+
+        return order;
+    }
+
+    public void deleteById(int id) {
+        orderMapper.deleteById(id);
     }
 }
