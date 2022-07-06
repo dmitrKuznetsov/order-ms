@@ -1,6 +1,6 @@
-package com.github.dmitrKuznetsov.orderms.mappers;
+package com.github.dmitrKuznetsov.orderms.repositories.mappers;
 
-import com.github.dmitrKuznetsov.orderms.mappers.entities.OrderItem;
+import com.github.dmitrKuznetsov.orderms.repositories.entities.OrderItem;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package com.github.dmitrKuznetsov.orderms.mappers;
+package com.github.dmitrKuznetsov.orderms.repositories.mappers;
 
-import com.github.dmitrKuznetsov.orderms.mappers.entities.Order;
+import com.github.dmitrKuznetsov.orderms.repositories.entities.Order;
 import org.apache.ibatis.annotations.*;
 
 @Mapper

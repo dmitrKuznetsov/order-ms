@@ -1,7 +1,8 @@
 # Order Microservice
-This RESTful application:
-* Supports CRUD operations for orders.
-* Uses PostgreSQL database for persisting data
+This RESTful has:
+* CRUD operations for orders.
+* PostgreSQL database for persisting data
+* Integration tests for repository layer 
 
 ## Local development
 For starting database run command:

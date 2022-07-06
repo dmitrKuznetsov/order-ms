@@ -1,6 +1,6 @@
 package com.github.dmitrKuznetsov.orderms.controllers;
 
-import com.github.dmitrKuznetsov.orderms.mappers.entities.Order;
+import com.github.dmitrKuznetsov.orderms.repositories.entities.Order;
 import com.github.dmitrKuznetsov.orderms.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,10 @@ public class OrderController {
 
     @PutMapping("{id}")
     Order update(@PathVariable int id, @RequestBody Order order) {
-        return orderService.update(id, order);
+        if (order.getId() != id) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return orderService.update(order);
     }
 
     @DeleteMapping("{id}")
