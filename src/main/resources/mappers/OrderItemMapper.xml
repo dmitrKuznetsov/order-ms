@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.dmitrKuznetsov.orderms.repositories.mappers.OrderItemMapper">
+
+    <select
+        id="findByOrderId"
+        parameterType="int"
+        resultType="com.github.dmitrKuznetsov.orderms.repositories.entities.OrderItem"
+    >
+        SELECT * FROM ORDER_ITEM WHERE ORDER_ID = #{id}
+    </select>
+
+    <insert
+        id="insertOrderItems"
+        parameterType="com.github.dmitrKuznetsov.orderms.repositories.entities.OrderItem"
+        useGeneratedKeys="true"
+        keyProperty="id"
+    >
+        insert into ORDER_ITEM (ID, ORDER_ID, ITEM_NAME) values
+        <foreach collection='items' item='o' separator = ', '>
+            (NEXTVAL('order_item_seq'), #{o.orderId}, #{o.itemName})
+        </foreach>
+    </insert>
+
+    <update
+        id="update"
+        parameterType="com.github.dmitrKuznetsov.orderms.repositories.entities.OrderItem"
+        flushCache="true"
+        timeout="20"
+    >
+        UPDATE ORDER_ITEM SET ITEM_NAME=#{itemName} WHERE ID = #{id}
+    </update>
+
+    <delete
+        id="delete"
+        parameterType="int"
+    >
+        DELETE FROM "order" WHERE ID IN
+        <foreach collection='ids' item='id' open="(" separator=", "  close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,9 +17,9 @@ public class Order implements Serializable {
     private String customerName;
     private String customerPhone;
     private String customerComment;
-    private ArrayList<OrderItem> orderItems;
+    private List<OrderItem> orderItems;
 
-    public Order(int id, int orderStatusId, String customerName, String customerPhone, String customerComment, ArrayList<OrderItem> orderItems) {
+    public Order(int id, int orderStatusId, String customerName, String customerPhone, String customerComment, List<OrderItem> orderItems) {
         this.id = id;
         this.orderStatusId = orderStatusId;
         this.customerName = customerName;

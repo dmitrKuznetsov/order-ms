@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.dmitrKuznetsov.orderms.repositories.mappers.OrderMapper">
+
+    <select
+        id="findById"
+        parameterType="int"
+        resultType="com.github.dmitrKuznetsov.orderms.repositories.entities.Order"
+    >
+        SELECT * FROM "order" WHERE ID = #{id}
+    </select>
+
+    <insert
+        id="insert"
+        parameterType="com.github.dmitrKuznetsov.orderms.repositories.entities.Order"
+        useGeneratedKeys="true"
+        keyProperty="id"
+    >
+        INSERT INTO "order" (ID, ORDER_STATUS_ID, CUSTOMER_NAME, CUSTOMER_PHONE, CUSTOMER_COMMENT)
+        VALUES (NEXTVAL('order_seq'), #{orderStatusId}, #{customerName}, #{customerPhone}, #{customerComment});
+    </insert>
+
+    <delete
+        id="deleteById"
+        parameterType="int"
+    >
+        DELETE FROM "order" WHERE ID = #{id}
+    </delete>
+
+    <update
+        id="update"
+        parameterType="com.github.dmitrKuznetsov.orderms.repositories.entities.Order"
+        flushCache="true"
+        timeout="20"
+    >
+        UPDATE "order" SET
+        ORDER_STATUS_ID=#{orderStatusId},
+        CUSTOMER_NAME=#{customerName},
+        CUSTOMER_PHONE=#{customerPhone},
+        CUSTOMER_COMMENT=#{customerComment}
+        WHERE ID = #{id};
+    </update>
+</mapper>

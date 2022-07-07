@@ -1,31 +1,13 @@
 package com.github.dmitrKuznetsov.orderms.services;
 
-
-import com.github.dmitrKuznetsov.orderms.repositories.OrderRepository;
 import com.github.dmitrKuznetsov.orderms.repositories.entities.Order;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+public interface OrderService {
+    Order findById(int id);
 
-@Service
-public class OrderService {
+    Order save(Order order);
 
-    @Autowired
-    public OrderRepository orderRepository;
+    Order update(Order order);
 
-    public Order findById(int id) {
-        return orderRepository.findById(id);
-    }
-
-    public Order save(Order order) {
-        return orderRepository.save(order);
-    }
-
-    public Order update(Order order) {
-        return orderRepository.update(order);
-    }
-
-    public void deleteById(int id) {
-        orderRepository.deleteById(id);
-    }
+    void deleteById(int id);
 }

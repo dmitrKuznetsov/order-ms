@@ -3,28 +3,16 @@ package com.github.dmitrKuznetsov.orderms.repositories.mappers;
 import com.github.dmitrKuznetsov.orderms.repositories.entities.OrderItem;
 import org.apache.ibatis.annotations.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Mapper
 public interface OrderItemMapper {
-    String findByOrderId = "SELECT * FROM ORDER_ITEM WHERE ORDER_ID = #{id}";
 
-    String insertByOrderId =
-        "<script>" +
-            "insert into ORDER_ITEM (ID, ORDER_ID, ITEM_NAME) values " +
-            "<foreach collection='items' item='o' separator = ', '>(NEXTVAL('order_item_seq'), #{o.orderId}, #{o.itemName})</foreach>" +
-        "</script>";
+    List<OrderItem> findByOrderId(int id);
 
-    String update = "UPDATE ORDER_ITEM SET ITEM_NAME=#{itemName} WHERE ID = #{id}";
+    void insertOrderItems(List<OrderItem> items);
 
+    void update(List<OrderItem>  orderItem);
 
-    @Select(findByOrderId)
-    ArrayList<OrderItem> findByOrderId(int id);
-
-    @Insert(insertByOrderId)
-    @Options(useGeneratedKeys=true, keyProperty="id")
-    void insertByOrderId(@Param("items") ArrayList<OrderItem> items);
-
-    @Update(update)
-    void update(OrderItem orderItem);
+    void delete(List<Integer> ids);
 }

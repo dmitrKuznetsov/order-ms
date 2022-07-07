@@ -30,9 +30,7 @@ public class OrderController {
 
     @PutMapping("{id}")
     Order update(@PathVariable int id, @RequestBody Order order) {
-        if (order.getId() != id) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+        order.setId(id);
         return orderService.update(order);
     }
 
