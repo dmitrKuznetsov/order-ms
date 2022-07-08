@@ -132,7 +132,7 @@ class MyBatisOrderRepositoryTest {
         Order orderById = orderRepository.findById(order.getId());
 
         //then
-        assertEquals(updatedOrder, order);
-        assertEquals(orderById, order);
+        assertEquals(order, updatedOrder);
+        assertEquals(order, orderById);
     }
 }

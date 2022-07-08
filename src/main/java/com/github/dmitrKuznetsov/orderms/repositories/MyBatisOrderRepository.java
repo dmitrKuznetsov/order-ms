@@ -74,17 +74,16 @@ public class MyBatisOrderRepository implements OrderRepository {
         // remove intersection of existed and updated lists of items
         ArrayList<OrderItem> intersection = new ArrayList<>(existedItems);
         intersection.retainAll(updatedItems);
-        existedItems.remove(intersection);
-        updatedItems.remove(intersection);
+        existedItems.removeAll(intersection);
+        updatedItems.removeAll(intersection);
 
         // update edited items
         orderItemMapper.update(updatedItems);
 
-        // delete items
+        // delete remaining items
         List<Integer> existedItemIds = existedItems.stream().mapToInt(OrderItem::getId).boxed().collect(Collectors.toList());
         List<Integer> updatedItemIds = updatedItems.stream().mapToInt(OrderItem::getId).boxed().collect(Collectors.toList());
         existedItemIds.removeIf(updatedItemIds::contains);
-
         orderItemMapper.delete(existedItemIds);
 
         return this.findById(updatedOrder.getId());

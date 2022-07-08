@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+/not_my/PatientMapper.java
+/not_my/PatientMapper.xml
+/not_my/PatientRepository.java
+/not_my/PatientRepositoryImpl.java
+/not_my/PersonMapper.java
+/not_my/PersonMapper.xml

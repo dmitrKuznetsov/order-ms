@@ -28,14 +28,21 @@
         flushCache="true"
         timeout="20"
     >
-        UPDATE ORDER_ITEM SET ITEM_NAME=#{itemName} WHERE ID = #{id}
+        update ORDER_ITEM as OOI set
+            ITEM_NAME = NOI.ITEM_NAME
+        from (values
+        <foreach collection='items' item='o' separator = ', '>
+            (#{o.id}, #{o.itemName})
+        </foreach>
+        ) as NOI(ID, ITEM_NAME)
+        where NOI.ID = OOI.ID;
     </update>
 
     <delete
         id="delete"
         parameterType="int"
     >
-        DELETE FROM "order" WHERE ID IN
+        DELETE FROM ORDER_ITEM WHERE ID IN
         <foreach collection='ids' item='id' open="(" separator=", "  close=")">
             #{id}
         </foreach>
