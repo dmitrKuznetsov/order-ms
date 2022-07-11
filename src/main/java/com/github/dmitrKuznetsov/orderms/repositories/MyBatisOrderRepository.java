@@ -7,6 +7,7 @@ import com.github.dmitrKuznetsov.orderms.repositories.mappers.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -23,14 +24,7 @@ public class MyBatisOrderRepository implements OrderRepository {
 
     @Override
     public Order findById(int id) {
-        Order order = orderMapper.findById(id);
-        if (order != null) {
-            List<OrderItem> items = orderItemMapper.findByOrderId(id);
-            if (items != null) {
-                order.setOrderItems(items);
-            }
-        }
-        return order;
+        return orderMapper.findById(id);
     }
 
     @Override
@@ -39,6 +33,7 @@ public class MyBatisOrderRepository implements OrderRepository {
     }
 
     @Override
+    @Transactional
     public Order save(Order order) {
         orderMapper.insert(order);
 
@@ -52,6 +47,7 @@ public class MyBatisOrderRepository implements OrderRepository {
     }
 
     @Override
+    @Transactional
     public Order update(Order updatedOrder) {
         // check if order with ID exists
         Order existedOrder = this.findById(updatedOrder.getId());
@@ -59,7 +55,6 @@ public class MyBatisOrderRepository implements OrderRepository {
 
         // update order
         orderMapper.update(updatedOrder);
-
 
         // save new orderItems
         List<OrderItem> newItems = new ArrayList<>(updatedOrder.getOrderItems())
@@ -80,16 +75,17 @@ public class MyBatisOrderRepository implements OrderRepository {
         // update edited items
         orderItemMapper.update(updatedItems);
 
-        // delete remaining items
+        // delete items
         List<Integer> existedItemIds = existedItems.stream().mapToInt(OrderItem::getId).boxed().collect(Collectors.toList());
         List<Integer> updatedItemIds = updatedItems.stream().mapToInt(OrderItem::getId).boxed().collect(Collectors.toList());
-        existedItemIds.removeIf(updatedItemIds::contains);
+        existedItemIds.removeAll(updatedItemIds);
         orderItemMapper.delete(existedItemIds);
 
         return this.findById(updatedOrder.getId());
     }
 
     @Override
+    @Transactional
     public void deleteById(int id) {
         orderMapper.deleteById(id);
     }

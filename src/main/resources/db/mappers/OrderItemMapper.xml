@@ -7,7 +7,7 @@
         parameterType="int"
         resultType="com.github.dmitrKuznetsov.orderms.repositories.entities.OrderItem"
     >
-        SELECT * FROM ORDER_ITEM WHERE ORDER_ID = #{id}
+        SELECT * FROM ORDER_ITEM WHERE ORDER_ID = #{id} ORDER BY ID
     </select>
 
     <insert

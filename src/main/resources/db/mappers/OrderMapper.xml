@@ -2,12 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.dmitrKuznetsov.orderms.repositories.mappers.OrderMapper">
 
+    <resultMap id="orderItemMap" type="com.github.dmitrKuznetsov.orderms.repositories.entities.OrderItem">
+        <result property="id" column="ID"/>
+        <result property="orderId" column="ORDER_ID"/>
+        <result property="itemName" column="ITEM_NAME"/>
+    </resultMap>
+
+    <resultMap id="orderMap" type="com.github.dmitrKuznetsov.orderms.repositories.entities.Order">
+        <result property="id" column="ID"/>
+        <result property="orderStatusId" column="ORDER_STATUS_ID"/>
+        <result property="customerName" column="CUSTOMER_NAME"/>
+        <result property="customerPhone" column="CUSTOMER_PHONE"/>
+        <result property="customerComment" column="CUSTOMER_COMMENT"/>
+        <collection property="orderItems" resultMap="orderItemMap" columnPrefix="OI_"/>
+    </resultMap>
+
     <select
         id="findById"
         parameterType="int"
-        resultType="com.github.dmitrKuznetsov.orderms.repositories.entities.Order"
+        resultMap="orderMap"
     >
-        SELECT * FROM "order" WHERE ID = #{id}
+        SELECT
+            o.ID,
+            o.ORDER_STATUS_ID,
+            o.CUSTOMER_NAME,
+            o.CUSTOMER_PHONE,
+            o.CUSTOMER_COMMENT,
+            oi.ID AS OI_ID,
+            oi.ORDER_ID AS OI_ORDER_ID,
+            oi.ITEM_NAME AS OI_ITEM_NAME
+        FROM "order" as o
+        JOIN ORDER_ITEM as oi ON o.ID = oi.ORDER_ID
+        WHERE o.ID = #{id}
+        ORDER BY oi.ID
     </select>
 
     <insert

@@ -9,7 +9,6 @@ For starting database run command:
 ```bash
 docker-compose -f docker-compose-postgres.yml -p orderms-postgres up -d
 ```
-Use OpenAPI to test features
 
 ### Access to pgAdmin
 1. Visit: http://localhost:5050/browser/
